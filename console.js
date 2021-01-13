@@ -80,3 +80,5 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, session =
                 { method: "PUT" })
                 .then(console.log('🎉🎉🎉'))))
 }
+
+console.log(url)
