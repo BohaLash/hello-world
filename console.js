@@ -20,7 +20,7 @@ async function getCorrectAnsws(question_id, answers) {
         },
         body: JSON.stringify({
             "id": question_id,
-            "document_id": q // static
+            "document_id": doc_id // static
         })
     })
         .then(response => response.json())
