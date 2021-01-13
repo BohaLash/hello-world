@@ -81,5 +81,6 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, change_co
                 fetch(`${url}api2/test/sessions/end/${session}`, { method: "PUT" })
                     .then(setTimeout(location.reload(), 3000))
             }))
-
 }
+
+doTheTest
