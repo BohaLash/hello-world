@@ -78,5 +78,6 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, session =
         )
             .then(v => fetch(`${url}api2/test/sessions/end/${getSession()}`,
                 { method: "PUT" })
-                .then(console.log('🎉🎉🎉'))))
+                .then(console.log('🎉🎉🎉'))
+                .then(location.reload())))
 }
