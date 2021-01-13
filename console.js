@@ -20,7 +20,7 @@ async function getCorrectAnsws(question_id, answers) {
         },
         body: JSON.stringify({
             "id": question_id,
-            "document_id": doc_id // static
+            "document_id": q // static
         })
     })
         .then(response => response.json())
@@ -80,5 +80,3 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, session =
                 { method: "PUT" })
                 .then(console.log('🎉🎉🎉'))))
 }
-
-var doc_id =
