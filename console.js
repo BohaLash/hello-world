@@ -1,4 +1,4 @@
-url = window.atob('aHR0cHM6Ly9uYXVyb2suY29tLnVhLw==')
+var url = window.atob('aHR0cHM6Ly9uYXVyb2suY29tLnVhLw==')
 
 function getSession() {
     return document.getElementsByClassName('activity-wrapper')[0].innerHTML
@@ -20,7 +20,7 @@ async function getCorrectAnsws(question_id, answers) {
         },
         body: JSON.stringify({
             "id": question_id,
-            "document_id": 709659 // static
+            "document_id": doc_id // static
         })
     })
         .then(response => response.json())
@@ -81,4 +81,4 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, session =
                 .then(console.log('🎉🎉🎉'))))
 }
 
-console.log(url)
+var doc_id = 
