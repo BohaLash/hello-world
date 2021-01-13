@@ -79,7 +79,7 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, change_co
             .then(v => {
                 console.log('🎉🎉🎉')
                 fetch(`${url}api2/test/sessions/end/${session}`, { method: "PUT" })
-                    .then(setTimerout(location.reload(), 3000))
+                    .then(setTimeout(location.reload(), 3000))
             }))
 
 }
