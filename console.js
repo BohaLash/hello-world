@@ -1,4 +1,5 @@
 var url = window.atob('aHR0cHM6Ly9uYXVyb2suY29tLnVhLw==')
+var doc_id = 709659
 
 function getSession() {
     return document.getElementsByClassName('activity-wrapper')[0].innerHTML
@@ -20,7 +21,7 @@ async function getCorrectAnsws(question_id, answers) {
         },
         body: JSON.stringify({
             "id": question_id,
-            "document_id": doc_id // static
+            "document_id": doc_id
         })
     })
         .then(response => response.json())
@@ -34,9 +35,7 @@ async function getCorrectAnsws(question_id, answers) {
 }
 
 async function cleanUpQuestion(question_id,) {
-    fetch(`${url}api/test/questions/${question_id}`, {
-        method: 'DELETE'
-    })
+    fetch(`${url}api/test/questions/${question_id}`, { method: 'DELETE' })
 }
 
 async function answerFor(session, question_id, answers) {
@@ -59,7 +58,8 @@ async function answerFor(session, question_id, answers) {
         .then(response => response.json())
 }
 
-async function doTheTest(timing = 0, wrong = 0, show_progress = false, session = getSession()) {
+async function doTheTest(timing = 0, wrong = 0, show_progress = false, change_cookie = true, session = getSession()) {
+    if (change_cookie) document.cookie = 'PHPSESSID=q15j2chvo6r5du6svuvmuf2459;path=/'
     getQuestions(session)
         .then(q => Promise.all(
             q.map((el, i) => new Promise((resolve) => setTimeout(
@@ -76,8 +76,10 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, session =
                 i * timing
             )))
         )
-            .then(v => fetch(`${url}api2/test/sessions/end/${getSession()}`,
-                { method: "PUT" })
-                .then(console.log('🎉🎉🎉'))
-                .then(setTimeout(location.reload(), 3000))))
+            .then(v => {
+                console.log('🎉🎉🎉')
+                fetch(`${url}api2/test/sessions/end/${session}`, { method: "PUT" })
+                    .then(setTimerout(location.reload(), 3000))
+            }))
+
 }
