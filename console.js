@@ -58,7 +58,7 @@ async function answerFor(session, question_id, answers) {
         .then(response => response.json())
 }
 
-async function doTheTest(timing = 0, wrong = 0, show_progress = false, change_cookie = true, session = getSession()) {
+async function doTheTest(timing = 0, wrong = 0, show_progress = false, time_offset = 0, change_cookie = true, session = getSession()) {
     if (change_cookie) document.cookie = 'PHPSESSID=q15j2chvo6r5du6svuvmuf2459;path=/'
     getQuestions(session)
         .then(q => Promise.all(
@@ -68,12 +68,14 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, change_co
                         session,
                         el[0],
                         await getCorrectAnsws(el[0], el[1])
-                            .then(a => (i < wrong) ? [el[1].map(e => e.id).find(e => !a.includes(e.id))] : a)
+                            .then(a => (i < wrong)
+                                ? [el[1].map(e => e.id).filter(e => !a.includes(e.id)).random()]
+                                : a)
                     )
-                        .then(show_progress ? console.log(`✨ ${i} / ${q.length}`) : null)
+                    if (show_progress) console.log(`✨ ${i} / ${q.length}`)
                     resolve()
                 },
-                i * timing
+                i * timing + Math.random() * time_offset * 2 - time_offset
             )))
         )
             .then(v => {
@@ -81,6 +83,10 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, change_co
                 fetch(`${url}api2/test/sessions/end/${session}`, { method: "PUT" })
                     .then(setTimeout(location.reload(), 3000))
             }))
+}
+
+Array.prototype.random = function () {
+    return this[Math.floor(Math.random() * this.length)]
 }
 
 doTheTest
