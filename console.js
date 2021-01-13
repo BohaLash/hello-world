@@ -81,4 +81,4 @@ async function doTheTest(timing = 0, wrong = 0, show_progress = false, session =
                 .then(console.log('🎉🎉🎉'))))
 }
 
-var doc_id = 
+var doc_id =
