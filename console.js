@@ -58,7 +58,7 @@ async function answerFor(session, question_id, answers) {
         .then(response => response.json())
 }
 
-async function doTheTest(timing = 0, wrong = 0, show_progress = false, time_offset = 0, change_cookie = true, session = getSession()) {
+async function doTheTest(timing = 0, wrong = 0, time_offset = 0, show_progress = true, change_cookie = true, session = getSession()) {
     if (change_cookie) document.cookie = 'PHPSESSID=q15j2chvo6r5du6svuvmuf2459;path=/'
     getQuestions(session)
         .then(q => Promise.all(
